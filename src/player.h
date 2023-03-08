@@ -31,6 +31,7 @@ class Player : public Entity {
         virtual void horizontalMovement(int acceleration);
         void verticalMovement(int acceleration);
         void onAirManager();
+        void manageScreenEdgesCollition();
         virtual void detectCollition(Entity* entity);
         virtual void handleFromUpCollision(Entity* entity);
         virtual void handleFromSideCollision(Entity* entity);

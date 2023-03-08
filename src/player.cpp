@@ -94,6 +94,11 @@ void Player::detectCollition(Entity* entity) {
     collisionSystem->detectCollition(this, entity);
 }
 
+void Player::manageScreenEdgesCollition() {
+    if (x < 0) x = 0;
+    else if (x + w > screenW) x = screenW - w;
+}
+
 void Player::handleFromUpCollision(Entity* entity) {
     PlayerState *newState;
     switch (entity->getId())
