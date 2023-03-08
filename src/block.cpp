@@ -39,7 +39,15 @@ void Block::handleFromDownCollision(Entity* entity) {
 
 }
 
-void Block::handleFromSideCollision(Entity* entity) {
+void Block::handleFromSideCollision(Entity* entity, bool isRight) {
+    
+}
+
+void Block::handleFromRightCollision(Entity* entity) {
+    
+}
+
+void Block::handleFromLeftCollision(Entity* entity) {
     
 }
 

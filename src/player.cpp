@@ -141,11 +141,19 @@ void Player::handleNoCollision() {
 
 }
 
-void Player::handleFromSideCollision(Entity* entity) {
+void Player::handleFromRightCollision(Entity* entity) {
+    handleFromSideCollision(entity, true);
+}
+
+void Player::handleFromLeftCollision(Entity* entity) {
+    handleFromSideCollision(entity, false);
+}
+
+void Player::handleFromSideCollision(Entity* entity, bool isRight) {
     PlayerState* newState;
     switch (entity->getId()) {
         case Ground:
-            if (currentXSpeed > 0) x = entity->getX() - 1 - w;
+            if (isRight) x = entity->getX() - 1 - w;
             else x = entity->getX() + entity->getW();
             currentXSpeed = 0;
             newState = playerState->handleFromSideCollision(this);

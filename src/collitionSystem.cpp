@@ -14,9 +14,9 @@ void CollitionSystem::detectCollition(Entity* entitySrc, Entity* entityDst) {
             if (topCollition < bottomCollition && topCollition < rightCollition && topCollition < leftCollition) {  
                 entitySrc->handleFromUpCollision(entityDst);
             } else if (rightCollition < leftCollition && rightCollition < topCollition && rightCollition < bottomCollition) {
-                entitySrc->handleFromSideCollision(entityDst);
+                entitySrc->handleFromRightCollision(entityDst);
             } else if (leftCollition < rightCollition && leftCollition < topCollition && leftCollition < bottomCollition) {
-                entitySrc->handleFromSideCollision(entityDst);
+                entitySrc->handleFromLeftCollision(entityDst);
             } else {
                 //From down COllition
             }

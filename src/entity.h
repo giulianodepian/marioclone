@@ -21,7 +21,9 @@ class Entity {
         virtual void horizontalMovement(int speed)= 0;
         virtual void detectCollition(Entity* entity) = 0;
         virtual void handleFromUpCollision(Entity* entity) = 0;
-        virtual void handleFromSideCollision(Entity* entity) = 0;
+        virtual void handleFromSideCollision(Entity* entity, bool isRight) = 0;
+        virtual void handleFromRightCollision(Entity* entity) = 0;
+        virtual void handleFromLeftCollision(Entity* entity) = 0;
         virtual void handleFromDownCollision(Entity* entity) = 0;
         virtual void handleNoCollision() = 0;
     protected:

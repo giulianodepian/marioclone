@@ -36,7 +36,9 @@ class Player : public Entity {
         void manageScreenEdgesCollition();
         virtual void detectCollition(Entity* entity);
         virtual void handleFromUpCollision(Entity* entity);
-        virtual void handleFromSideCollision(Entity* entity);
+        virtual void handleFromSideCollision(Entity* entity, bool isRight);
+        virtual void handleFromRightCollision(Entity* entity);
+        virtual void handleFromLeftCollision(Entity* entity);
         virtual void handleFromDownCollision(Entity* entity);
         virtual void handleNoCollision();
     private:
