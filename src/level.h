@@ -14,6 +14,7 @@ class Level{
         bool detectLoadNewColumn();
         void loadNewColumn();
         std::vector<std::vector<Block*>> getBlocks();
+        bool checkEndOfLevel();
     private:
         int currentLevelData[400][12];
         int firstColumn; //Starts in 0

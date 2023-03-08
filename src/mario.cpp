@@ -78,7 +78,7 @@ void Mario::update() {
         player->onAirManager();
 
         //level updates 
-        if (player->getX() + ( player->getW() / 2) > screenW/2) {
+        if (player->getX() + ( player->getW() / 2) > screenW/2 && !(level->checkEndOfLevel())) {
             player->setX(screenW/2 - (player->getW() / 2));
             level->horizontalMovement(-player->getCurrentXSpeed() * (deltaTime * 0.001));
         }

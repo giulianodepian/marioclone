@@ -110,7 +110,11 @@ void Level::horizontalMovement(int playerCurrentSpeed) {
 }
 
 bool Level::detectLoadNewColumn() {
-    return blocks[lastColumn%17][0]->getX() + BLOCK_BASE_WIDTH < screenW;
+    return blocks[lastColumn%17][0]->getX() + BLOCK_BASE_WIDTH < screenW && lastColumn != levelSize;
+}
+
+bool Level::checkEndOfLevel() {
+    return lastColumn == levelSize;
 }
 
 void Level::loadNewColumn() {
