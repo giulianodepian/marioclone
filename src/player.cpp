@@ -95,8 +95,14 @@ void Player::detectCollition(Entity* entity) {
 }
 
 void Player::manageScreenEdgesCollition() {
-    if (x < 0) x = 0;
-    else if (x + w > screenW) x = screenW - w;
+    if (x < 0) { 
+        x = 0;
+        currentXSpeed = 0;
+    }
+    else if (x + w > screenW) {
+        x = screenW - w;
+        currentXSpeed = 0;
+    }
 }
 
 void Player::handleFromUpCollision(Entity* entity) {
@@ -106,6 +112,7 @@ void Player::handleFromUpCollision(Entity* entity) {
     case Ground:
         isOnGround = true;
         y = (entity->getY() - 1) - h;
+        currentYSpeed = 0;
         newState = playerState->handleFromUpCollision(this);
         if (newState != NULL) {
             delete playerState;
