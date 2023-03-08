@@ -8,6 +8,7 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     w = PLAYER_WIDTH + (screenW - 800);
     x = 0;
     y = screenH / 2;
+    fallStarterSpeed = PLAYER_BASE_FALL + (screenH - 611);
     id = 98;
     isOnGround = false;
     currentXSpeed = 0;
@@ -43,6 +44,10 @@ PlayerState* Player::getMoveState() {
 
 int Player::getMaxSpeedY() {
     return maxSpeedY;
+}
+
+int Player::getFallStarterSpeed() {
+    return fallStarterSpeed;
 }
 
 void Player::setCurrentYSpeed(int currentYSpeed) {
@@ -95,10 +100,12 @@ void Player::detectCollition(Entity* entity) {
 }
 
 void Player::manageScreenEdgesCollition() {
+    //Detect if collided with left side of screen
     if (x < 0) { 
         x = 0;
         currentXSpeed = 0;
     }
+    //Detect if collided with right side of screen
     else if (x + w > screenW) {
         x = screenW - w;
         currentXSpeed = 0;

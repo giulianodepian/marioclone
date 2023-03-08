@@ -20,7 +20,7 @@ void FallingState::update(Player* player) {
 }
 
 void FallingState::onEntry(Player* player) {
-
+    player->setCurrentYSpeed(player->getFallStarterSpeed());
 }
 
 PlayerState* FallingState::handleFromUpCollision(Player* player) {

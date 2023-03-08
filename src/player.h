@@ -14,6 +14,7 @@ class PlayerState;
 #define PLAYER_BASE_GRAVITY 5
 #define PLAYER_MAX_SPEED_BASE 200
 #define PLAYER_MAX_SPEED_Y_BASE 300
+#define PLAYER_BASE_FALL 100
 
 class Player : public Entity {
     public:
@@ -25,6 +26,7 @@ class Player : public Entity {
         int getGravity();
         int getCurrentXSpeed();
         int getMaxSpeedY();
+        int getFallStarterSpeed();
         void setCurrentYSpeed(int currentYSpeed);
         PlayerState* getMoveState();
         void stopMovement();
@@ -45,6 +47,7 @@ class Player : public Entity {
         int maxSpeedX;
         int maxSpeedY;
         int isOnGround;
+        int fallStarterSpeed;
         PlayerState* playerState;
         CollitionSystem* collisionSystem;
 };
