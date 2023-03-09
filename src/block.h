@@ -4,6 +4,7 @@
 #include "global.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <vector>
 #include "entity.h"
 #include "collitionSystem.h"
 
@@ -12,7 +13,7 @@
 
 class Block : public Entity {
     public:
-        Block(SDL_Renderer *renderer, int x, int y, int w, int h, char* imageRoute, int id, CollitionSystem* collisionSystem);
+        Block(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
         ~Block();
         void screenMovement(int playerCurrentSpeed);
         virtual void horizontalMovement(int speed);

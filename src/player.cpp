@@ -21,13 +21,13 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
     SDL_Surface *playerSurface = IMG_Load("./media/mario.png");
-    entityTexture = SDL_CreateTextureFromSurface(renderer, playerSurface);
-    if (!entityTexture) printf("ERROR TEXTURE NOT LOADED");
+    currentTexture = SDL_CreateTextureFromSurface(renderer, playerSurface);
+    if (!currentTexture) printf("ERROR TEXTURE NOT LOADED");
     SDL_FreeSurface(playerSurface);
 }
 
 Player::~Player(){
-    SDL_DestroyTexture(entityTexture);
+    SDL_DestroyTexture(currentTexture);
 }
 
 int Player::getXAcceleration() {

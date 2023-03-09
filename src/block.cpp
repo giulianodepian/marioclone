@@ -1,7 +1,7 @@
 #include "block.h"
 #include <cstdio>
 
-Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, char* imageRoute, int id, CollitionSystem* collisionSystem) {
+Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem) {
     Block::x = x;
     Block::y = y;
     Block::w = w;
@@ -9,14 +9,13 @@ Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, char* imageRout
     Block::id = id;
     Block::collisionSystem = collisionSystem;
     Block::renderer = renderer;
-    SDL_Surface* blockSurface = IMG_Load(imageRoute);
-    entityTexture = SDL_CreateTextureFromSurface(renderer, blockSurface);
-    if (!entityTexture) printf("ERROR TEXTURE NOT LOADED");
-    SDL_FreeSurface(blockSurface);
+    Block::entityTextures = entityTextures;
+    currentTexture = entityTextures[0];
+    if (!currentTexture) printf("ERROR TEXTURE NOT LOADED");
 }
 
 Block::~Block(){
-    SDL_DestroyTexture(entityTexture);
+    
 }
 
 void Block::screenMovement(int playerCurrentSpeed) {

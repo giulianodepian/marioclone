@@ -53,6 +53,10 @@ Level::Level(SDL_Renderer* renderer) {
     };
 }
 
+Level::~Level() {
+    clearCache();
+}
+
 void Level::loadColumn(int columnNumber) {
     for (int i = 0; i < 12; i++) {
         Block* block;
@@ -60,9 +64,18 @@ void Level::loadColumn(int columnNumber) {
         int y;
         int h;
         int w;
+        std::vector<SDL_Texture*> tempTextureVector;
         switch (currentLevelData[columnNumber][i])
         {
         case Ground:
+            if (texturesCache.find("1A") == texturesCache.end()) {
+                printf("TEXTURE NOT ON CACHE\n");
+                SDL_Surface* tempSurface = IMG_Load("./media/ground.png");
+                SDL_Texture* tempTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+                SDL_FreeSurface(tempSurface);
+                texturesCache["1A"] = tempTexture;
+            }
+            tempTextureVector.push_back(texturesCache["1A"]);
             w = BLOCK_BASE_WIDTH;
             h = BLOCK_BASE_HEIGHT;
             if (columnNumber != 0) {
@@ -73,7 +86,7 @@ void Level::loadColumn(int columnNumber) {
             }
             else x = 0;
             y = i * BLOCK_BASE_HEIGHT;
-            block = new Block(renderer, x, y, w, h, "./media/ground.png", 1, CollitionSystem::instance());
+            block = new Block(renderer, x, y, w, h, tempTextureVector, 1, CollitionSystem::instance());
             if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
             else blocks[0].push_back(block);
             break;
@@ -126,4 +139,12 @@ void Level::loadNewColumn() {
 
 std::vector<std::vector<Block*>> Level::getBlocks() {
     return blocks;
+}
+
+void Level::clearCache() {
+    for (auto entityTexture = texturesCache.begin(); entityTexture != texturesCache.end(); entityTexture++) {
+        SDL_DestroyTexture(entityTexture->second);
+    }
+    
+    texturesCache.clear();
 }

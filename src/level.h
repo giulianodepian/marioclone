@@ -1,6 +1,10 @@
 #ifndef _H_Level
 #define _H_Level
 #include <vector>
+#include <map>
+#include <string>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "block.h"
 #include "global.h"
 
@@ -15,11 +19,13 @@ class Level{
         void loadNewColumn();
         std::vector<std::vector<Block*>> getBlocks();
         bool checkEndOfLevel();
+        void clearCache();
     private:
         int currentLevelData[400][12];
         int firstColumn; //Starts in 0
         int lastColumn; //starts in 16
         int levelSize; //In Columns
+        std::map<std::string, SDL_Texture*> texturesCache; 
         std::vector<std::vector<Block*>> blocks;
         // std::vector<entity*> entities; Entities List
         SDL_Renderer* renderer;

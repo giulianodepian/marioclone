@@ -28,7 +28,7 @@ void Entity::setH(int h){
     this->h = h;
 }
 SDL_Texture* Entity::getGraphic(){
-    return entityTexture;
+    return currentTexture;
 }
 void Entity::render() {
     SDL_Rect rect;
@@ -36,5 +36,5 @@ void Entity::render() {
     rect.y = y;
     rect.w = w;
     rect.h = h;
-    SDL_RenderCopy(renderer, entityTexture, NULL, &rect);
+    SDL_RenderCopy(renderer, currentTexture, NULL, &rect);
 }

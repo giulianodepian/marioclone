@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include <SDL2/SDL.h>
+#include <vector>
 
 class Entity {
     public:
@@ -32,7 +33,8 @@ class Entity {
         int y;
         int w;
         int h;
-        SDL_Texture *entityTexture;
+        SDL_Texture *currentTexture;
+        std::vector<SDL_Texture*> entityTextures;
         SDL_Renderer *renderer;
 };
 
