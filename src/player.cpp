@@ -51,6 +51,10 @@ int Player::getCurrentXSpeed() {
     return currentXSpeed;
 }
 
+int Player::getCurrentYSpeed() {
+    return currentYSpeed;
+}
+
 PlayerState* Player::getMoveState() {
     return playerState;
 }
@@ -130,14 +134,16 @@ void Player::handleFromUpCollision(Entity* entity) {
     switch (entity->getId())
     {
     case Ground:
-        isOnGround = true;
-        y = (entity->getY() - 1) - h;
-        currentYSpeed = 0;
-        newState = playerState->handleFromUpCollision(this);
-        if (newState != NULL) {
-            delete playerState;
-            playerState = newState;
-            playerState->onEntry(this);
+        if (currentYSpeed >= 0) {
+            isOnGround = true;
+            y = (entity->getY() - 1) - h;
+            currentYSpeed = 0;
+            newState = playerState->handleFromUpCollision(this);
+            if (newState != NULL) {
+                delete playerState;
+                playerState = newState;
+                playerState->onEntry(this);
+            }
         }
         break;
     

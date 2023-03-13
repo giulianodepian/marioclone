@@ -25,6 +25,7 @@ class Player : public Entity {
         int getXAcceleration();
         int getGravity();
         int getCurrentXSpeed();
+        int getCurrentYSpeed();
         int getMaxSpeedY();
         int getFallStarterSpeed();
         void setCurrentYSpeed(int currentYSpeed);
