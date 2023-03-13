@@ -6,8 +6,8 @@ void CollitionSystem::detectCollition(Entity* entitySrc, Entity* entityDst) {
     if (entitySrc->getX() + entitySrc->getW() >= entityDst->getX() 
     && entitySrc->getX() <= entityDst->getX() + entityDst->getW()) {
         if (entitySrc->getY() + entitySrc->getH() >= entityDst->getY() - 1 
-        && entitySrc->getY() <= entityDst->getY() + entityDst->getH() + 1) {
-            int bottomCollition = entityDst->getY() + entityDst->getH() + 1 - entitySrc->getY();
+        && entitySrc->getY() <= entityDst->getY() + entityDst->getH() - 1) {
+            int bottomCollition = entityDst->getY() + entityDst->getH() - 1 - entitySrc->getY();
             int topCollition = entitySrc->getY() + entitySrc->getH() - entityDst->getY() - 1;
             int rightCollition = entitySrc->getX() + entitySrc->getW() - entityDst->getX();
             int leftCollition = entityDst->getX() + entityDst->getW() - entitySrc->getX();
@@ -18,7 +18,7 @@ void CollitionSystem::detectCollition(Entity* entitySrc, Entity* entityDst) {
             } else if (leftCollition < rightCollition && leftCollition < topCollition && leftCollition < bottomCollition) {
                 entitySrc->handleFromLeftCollision(entityDst);
             } else {
-                //From down COllition
+                entitySrc->handleFromDownCollision(entityDst);
             }
         }
     }

@@ -153,6 +153,18 @@ void Player::handleFromUpCollision(Entity* entity) {
 }
 
 void Player::handleFromDownCollision(Entity* entity) {
+    PlayerState* newState;
+    switch (entity->getId()) {
+        case Ground:
+            if (currentYSpeed < 0) {
+                y = entity->getY() + entity->getH();
+                currentYSpeed = 0;
+            }
+        break;
+        
+        default:
+            break;
+    }
 
 }
 
