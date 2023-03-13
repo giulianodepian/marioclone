@@ -20,6 +20,7 @@ class Level{
         std::vector<std::vector<Block*>> getBlocks();
         bool checkEndOfLevel();
         void clearCache();
+        void loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id);
     private:
         int currentLevelData[400][12];
         int firstColumn; //Starts in 0

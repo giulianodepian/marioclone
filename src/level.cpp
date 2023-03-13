@@ -57,29 +57,26 @@ Level::~Level() {
     clearCache();
 }
 
-void Level::loadColumn(int columnNumber) {
-    for (int i = 0; i < 12; i++) {
-        Block* block;
-        int x;
-        int y;
-        int h;
-        int w;
-        std::vector<SDL_Texture*> tempTextureVector;
-        w = BLOCK_BASE_WIDTH;
-        h = BLOCK_BASE_HEIGHT;
-        if (columnNumber != 0) {
-            if (columnNumber%17-1 < 0) {
-                x = blocks[16][0]->getX() + BLOCK_BASE_WIDTH;
-            }
-            else x = blocks[columnNumber%17-1][0]->getX() + BLOCK_BASE_WIDTH;
+void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id) {
+    int x;
+    if (columnNumber != 0) {
+        if (columnNumber%17-1 < 0) {
+            x = blocks[16][0]->getX() + w;
         }
-        else x = 0;
-        y = -99;
-        tempTextureVector.push_back(NULL);
-        block = new Block(renderer, x, y, w, h, tempTextureVector, Air, CollitionSystem::instance());
+        else x = blocks[columnNumber%17-1][0]->getX() + w;
+    } else x = 0;
+    int y = gridNumber * h;
+    Block* block = new Block(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
+    if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
+    else blocks[0].push_back(block);
+}
+
+void Level::loadColumn(int columnNumber) {
+    std::vector<SDL_Texture*> tempTextureVector;
+    tempTextureVector.push_back(NULL);
+    loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, -2, tempTextureVector, Air);
+    for (int i = 0; i < 12; i++) {
         tempTextureVector.clear();
-        if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-        else blocks[0].push_back(block);
         switch (currentLevelData[columnNumber][i])
         {
         case Ground:
@@ -91,19 +88,7 @@ void Level::loadColumn(int columnNumber) {
                 texturesCache["1A"] = tempTexture;
             }
             tempTextureVector.push_back(texturesCache["1A"]);
-            w = BLOCK_BASE_WIDTH;
-            h = BLOCK_BASE_HEIGHT;
-            if (columnNumber != 0) {
-                if (columnNumber%17-1 < 0) {
-                    x = blocks[16][0]->getX() + BLOCK_BASE_WIDTH;
-                }
-                else x = blocks[columnNumber%17-1][0]->getX() + BLOCK_BASE_WIDTH;
-            }
-            else x = 0;
-            y = i * BLOCK_BASE_HEIGHT;
-            block = new Block(renderer, x, y, w, h, tempTextureVector, Ground, CollitionSystem::instance());
-            if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-            else blocks[0].push_back(block);
+            loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Ground);
             break;
         case 0:
             break;
