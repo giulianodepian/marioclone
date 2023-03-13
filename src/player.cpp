@@ -13,6 +13,7 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     isOnGround = false;
     currentXSpeed = 0;
     currentYSpeed = 0;
+    flip = false;
     xAcceleration = PLAYER_ACCELERATION_BASE;
     gravity = PLAYER_BASE_GRAVITY;
     maxSpeedX = PLAYER_MAX_SPEED_BASE;
@@ -20,27 +21,22 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     playerState = new IdleState();
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
-    SDL_Surface *tempSurface; 
-    tempSurface = IMG_Load("./media/marioIdle.png");
-    loadMarioSprites(tempSurface);
-    SDL_FreeSurface(tempSurface);
-    tempSurface = IMG_Load("./media/marioRun1.png");
-    loadMarioSprites(tempSurface);
-    SDL_FreeSurface(tempSurface);
-    tempSurface = IMG_Load("./media/marioRun2.png");
-    loadMarioSprites(tempSurface);
-    SDL_FreeSurface(tempSurface);
-    tempSurface = IMG_Load("./media/marioRun3.png");
-    loadMarioSprites(tempSurface);
-    SDL_FreeSurface(tempSurface);
+    loadMarioSprites("./media/marioIdle.png");
+    loadMarioSprites("./media/marioRun1.png");
+    loadMarioSprites("./media/marioRun2.png");
+    loadMarioSprites("./media/marioRun3.png");
+    loadMarioSprites("./media/marioJump.png");
     currentAnim = 0;
     animSpeed = 5;
 }
 
-void Player::loadMarioSprites(SDL_Surface* surface) {
+void Player::loadMarioSprites(const char* spritePath) {
     SDL_Texture* tempTexture;
-    tempTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Surface *tempSurface;
+    tempSurface = IMG_Load(spritePath);
+    tempTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     entityTextures.push_back(tempTexture);
+    SDL_FreeSurface(tempSurface);
 }
 
 Player::~Player(){

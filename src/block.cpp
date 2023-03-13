@@ -10,6 +10,7 @@ Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, std::vector<SDL
     Block::collisionSystem = collisionSystem;
     Block::renderer = renderer;
     Block::entityTextures = entityTextures;
+    flip = false;
     currentAnim = 0;
     animSpeed = 0;
 }

@@ -14,12 +14,19 @@ PlayerState* JumpState::handleInput(Player* player) {
 
 void JumpState::update(Player* player) {
     player->verticalMovement(player->getGravity());
-    if (keyboardState[SDL_SCANCODE_RIGHT]) player->horizontalMovement(player->getXAcceleration());
-    else if (keyboardState[SDL_SCANCODE_LEFT]) player->horizontalMovement(player->getXAcceleration() * -1);
+    if (keyboardState[SDL_SCANCODE_RIGHT]) {
+        player->setFlip(false);
+        player->horizontalMovement(player->getXAcceleration());
+    }
+    else if (keyboardState[SDL_SCANCODE_LEFT]) {
+        player->setFlip(true);
+        player->horizontalMovement(player->getXAcceleration() * -1);
+    }
     else player->stopMovement();
 }
 
 void JumpState::onEntry(Player* player) {
+    player->setCurrentAnim(4);
     player->setCurrentYSpeed(player->getMaxSpeedY() * -1);
 }
 
