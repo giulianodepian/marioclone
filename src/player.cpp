@@ -20,14 +20,31 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     playerState = new IdleState();
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
-    SDL_Surface *playerSurface = IMG_Load("./media/mario.png");
-    currentTexture = SDL_CreateTextureFromSurface(renderer, playerSurface);
-    if (!currentTexture) printf("ERROR TEXTURE NOT LOADED");
-    SDL_FreeSurface(playerSurface);
+    SDL_Surface *tempSurface; 
+    tempSurface = IMG_Load("./media/marioIdle.png");
+    loadMarioSprites(tempSurface);
+    SDL_FreeSurface(tempSurface);
+    tempSurface = IMG_Load("./media/marioRun1.png");
+    loadMarioSprites(tempSurface);
+    SDL_FreeSurface(tempSurface);
+    tempSurface = IMG_Load("./media/marioRun2.png");
+    loadMarioSprites(tempSurface);
+    SDL_FreeSurface(tempSurface);
+    tempSurface = IMG_Load("./media/marioRun3.png");
+    loadMarioSprites(tempSurface);
+    SDL_FreeSurface(tempSurface);
+    currentAnim = 0;
+    animSpeed = 5;
+}
+
+void Player::loadMarioSprites(SDL_Surface* surface) {
+    SDL_Texture* tempTexture;
+    tempTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    entityTextures.push_back(tempTexture);
 }
 
 Player::~Player(){
-    SDL_DestroyTexture(currentTexture);
+    //Destroy Textures
 }
 
 int Player::getXAcceleration() {

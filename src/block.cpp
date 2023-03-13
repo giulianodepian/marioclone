@@ -10,12 +10,12 @@ Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, std::vector<SDL
     Block::collisionSystem = collisionSystem;
     Block::renderer = renderer;
     Block::entityTextures = entityTextures;
-    currentTexture = entityTextures[0];
-    if (!currentTexture) printf("ERROR TEXTURE NOT LOADED");
+    currentAnim = 0;
+    animSpeed = 0;
 }
 
 Block::~Block(){
-    
+
 }
 
 void Block::screenMovement(int playerCurrentSpeed) {

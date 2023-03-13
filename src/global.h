@@ -9,7 +9,7 @@ extern int screenW;
 extern int screenH;
 extern float deltaTime;
 extern float lastUpdateTime;
-
+extern int framesPassed;
 enum entityId {
     Air = 0,
     Ground,

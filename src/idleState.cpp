@@ -22,12 +22,24 @@ PlayerState* IdleState::handleInput(Player* player) {
 }
 
 void IdleState::update(Player* player) {
-    //setGraphics
+    if (player->getCurrentXSpeed() != 0) {
+        if (framesPassed%player->getAnimSpeed() == 0) {
+            if (player->getCurrentAnim() == 3) {
+                player->setCurrentAnim(1);
+            } else {
+                player->setCurrentAnim(player->getCurrentAnim() + 1);
+            }
+        } 
+        if (player->getCurrentXSpeed() > 0) player->setFlip(false);
+        else if (player->getCurrentXSpeed() < 0) player->setFlip(true);
+    } else {
+        player->setCurrentAnim(0);
+    }
     player->stopMovement();
 }
 
 void IdleState::onEntry(Player* player) {
-    //setGraphics
+    player->setCurrentAnim(0);
     player->setCurrentYSpeed(0);
 }
 

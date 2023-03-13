@@ -7,6 +7,7 @@ float deltaTime = 0;
 float lastUpdateTime = 0;
 int screenW = 0;
 int screenH = 0;
+int framesPassed = 0;
 const uint8_t* keyboardState;
 
 
@@ -60,6 +61,8 @@ void Mario::update() {
     
     //lock to 60 fps max
     if (deltaTime >= 16) {
+        framesPassed++;
+        if (framesPassed == 61) framesPassed = 1;
         //Save last Update for next delta time
         lastUpdateTime = currentTime;
 

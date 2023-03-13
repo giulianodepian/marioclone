@@ -23,12 +23,32 @@ PlayerState* MovingState::handleInput(Player* player) {
 
 void MovingState::update(Player* player) {
     //Set Moving Graphic
-    if (keyboardState[SDL_SCANCODE_RIGHT]) player->horizontalMovement(player->getXAcceleration());
-    else if (keyboardState[SDL_SCANCODE_LEFT]) player->horizontalMovement(player->getXAcceleration() * -1);
+    if (keyboardState[SDL_SCANCODE_RIGHT]) {
+        if (framesPassed%player->getAnimSpeed() == 0) {
+            if (player->getCurrentAnim() == 3) {
+                player->setCurrentAnim(1);
+            } else {
+                player->setCurrentAnim(player->getCurrentAnim() + 1);
+            } 
+        }
+        player->setFlip(false);
+        player->horizontalMovement(player->getXAcceleration());
+    }
+    else if (keyboardState[SDL_SCANCODE_LEFT]) {
+        if (framesPassed%player->getAnimSpeed() == 0) {
+            if (player->getCurrentAnim() == 3) {
+                player->setCurrentAnim(1);
+            } else {
+                player->setCurrentAnim(player->getCurrentAnim() + 1);
+            } 
+        }
+        player->setFlip(true);
+        player->horizontalMovement(player->getXAcceleration() * -1);
+    }
 }
 
 void MovingState::onEntry(Player* player) {
-    //Set Moving Graphic
+    player->setCurrentAnim(3);
     player->setCurrentYSpeed(0);
 }
 

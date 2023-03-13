@@ -13,11 +13,15 @@ class Entity {
         int getW();
         int getH();
         int getId();
+        int getCurrentAnim();
+        int getAnimSpeed();
+        bool doWeFlip();
+        void setFlip(bool flip);
         void setX(int x);
         void setY(int y);
         void setW(int w);
         void setH(int h);
-        SDL_Texture* getGraphic();
+        void setCurrentAnim(int anim);
         void render();
         virtual void horizontalMovement(int speed)= 0;
         virtual void detectCollition(Entity* entity) = 0;
@@ -33,7 +37,9 @@ class Entity {
         int y;
         int w;
         int h;
-        SDL_Texture *currentTexture;
+        int currentAnim;
+        int animSpeed; //frames per animation
+        bool flip;
         std::vector<SDL_Texture*> entityTextures;
         SDL_Renderer *renderer;
 };

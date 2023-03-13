@@ -5,7 +5,7 @@ output: main.o mario.o player.o idleState.o movingState.o fallingState.o level.o
 	g++ main.o mario.o player.o idleState.o movingState.o fallingState.o level.o block.o entity.o collitionSystem.o jumpState.o -o output $(LXXFLAGS) 
 
 main.o: src/main.cpp 
-	g++ main.cpp -c $(CXXFLAGS) 
+	g++ src/main.cpp -c $(CXXFLAGS) 
 
 mario.o: src/mario.cpp src/mario.h
 	g++ -c src/mario.cpp $(CXXFLAGS)

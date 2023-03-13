@@ -50,6 +50,7 @@ class Player : public Entity {
         int maxSpeedY;
         int isOnGround;
         int fallStarterSpeed;
+        void loadMarioSprites(SDL_Surface* surface);
         PlayerState* playerState;
         CollitionSystem* collisionSystem;
 };
