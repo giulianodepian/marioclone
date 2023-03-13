@@ -13,6 +13,7 @@ extern int framesPassed;
 enum entityId {
     Air = 0,
     Ground,
+    PlayerEntity = 98,
 };
 
 #endif

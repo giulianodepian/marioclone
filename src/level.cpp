@@ -18,7 +18,7 @@ Level::Level(SDL_Renderer* renderer) {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -65,6 +65,21 @@ void Level::loadColumn(int columnNumber) {
         int h;
         int w;
         std::vector<SDL_Texture*> tempTextureVector;
+        w = BLOCK_BASE_WIDTH;
+        h = BLOCK_BASE_HEIGHT;
+        if (columnNumber != 0) {
+            if (columnNumber%17-1 < 0) {
+                x = blocks[16][0]->getX() + BLOCK_BASE_WIDTH;
+            }
+            else x = blocks[columnNumber%17-1][0]->getX() + BLOCK_BASE_WIDTH;
+        }
+        else x = 0;
+        y = -99;
+        tempTextureVector.push_back(NULL);
+        block = new Block(renderer, x, y, w, h, tempTextureVector, Air, CollitionSystem::instance());
+        tempTextureVector.clear();
+        if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
+        else blocks[0].push_back(block);
         switch (currentLevelData[columnNumber][i])
         {
         case Ground:
@@ -86,7 +101,7 @@ void Level::loadColumn(int columnNumber) {
             }
             else x = 0;
             y = i * BLOCK_BASE_HEIGHT;
-            block = new Block(renderer, x, y, w, h, tempTextureVector, 1, CollitionSystem::instance());
+            block = new Block(renderer, x, y, w, h, tempTextureVector, Ground, CollitionSystem::instance());
             if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
             else blocks[0].push_back(block);
             break;
