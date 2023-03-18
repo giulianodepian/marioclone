@@ -31,11 +31,11 @@ class Player : public Entity {
         void setCurrentYSpeed(int currentYSpeed);
         PlayerState* getMoveState();
         void stopMovement();
-        virtual void horizontalMovement(int acceleration);
+        void horizontalMovement(int acceleration);
         void verticalMovement(int acceleration);
         void onAirManager();
         void manageScreenEdgesCollition();
-        virtual void detectCollition(Entity* entity);
+        void detectCollition(Entity* entity);
         virtual void handleFromUpCollision(Entity* entity);
         virtual void handleFromSideCollision(Entity* entity, bool isRight);
         virtual void handleFromRightCollision(Entity* entity);

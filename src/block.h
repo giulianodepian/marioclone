@@ -15,16 +15,14 @@ class Block : public Entity {
     public:
         Block(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
         ~Block();
-        void screenMovement(int playerCurrentSpeed);
-        virtual void horizontalMovement(int speed);
-        virtual void detectCollition(Entity* entity);
-        virtual void handleFromUpCollision(Entity* entity);
-        virtual void handleFromSideCollision(Entity* entity, bool isRight);
-        virtual void handleFromRightCollision(Entity* entity);
-        virtual void handleFromLeftCollision(Entity* entity);
-        virtual void handleFromDownCollision(Entity* entity);
-        virtual void handleNoCollision();
-    private:
+        virtual void update()= 0;
+        virtual void handleFromUpCollision(Entity* entity)= 0;
+        virtual void handleFromSideCollision(Entity* entity, bool isRight)= 0;
+        virtual void handleFromRightCollision(Entity* entity)= 0;
+        virtual void handleFromLeftCollision(Entity* entity)= 0;
+        virtual void handleFromDownCollision(Entity* entity)= 0;
+        virtual void handleNoCollision() = 0;
+    protected:
         CollitionSystem* collisionSystem;
 };
 

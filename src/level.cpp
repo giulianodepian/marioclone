@@ -9,7 +9,7 @@ Level::Level(SDL_Renderer* renderer) {
     int dummyLevelData[32][12] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-        {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+        {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -59,6 +59,7 @@ Level::~Level() {
 
 void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id) {
     int x;
+    Block* block;
     if (columnNumber != 0) {
         if (columnNumber%17-1 < 0) {
             x = blocks[16][0]->getX() + w;
@@ -66,9 +67,22 @@ void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector
         else x = blocks[columnNumber%17-1][0]->getX() + w;
     } else x = 0;
     int y = gridNumber * h;
-    Block* block = new Block(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
-    if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-    else blocks[0].push_back(block);
+    switch(id)
+    {
+        case Air:
+        case Block_Ground:
+            block = new SolidBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
+            if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
+            else blocks[0].push_back(block);
+            break;
+        case Block_Brick:
+            block = new InteractiveBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
+            if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
+            else blocks[0].push_back(block);
+            break;
+        default:
+            break;
+    }
 }
 
 void Level::loadColumn(int columnNumber) {
@@ -79,16 +93,25 @@ void Level::loadColumn(int columnNumber) {
         tempTextureVector.clear();
         switch (currentLevelData[columnNumber][i])
         {
-        case Ground:
+        case Block_Ground:
             if (texturesCache.find("1A") == texturesCache.end()) {
-                printf("TEXTURE NOT ON CACHE\n");
                 SDL_Surface* tempSurface = IMG_Load("./media/ground.png");
                 SDL_Texture* tempTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
                 SDL_FreeSurface(tempSurface);
                 texturesCache["1A"] = tempTexture;
             }
             tempTextureVector.push_back(texturesCache["1A"]);
-            loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Ground);
+            loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Block_Ground);
+            break;
+        case Block_Brick:
+            if(texturesCache.find("4A") == texturesCache.end()) {
+                SDL_Surface* tempSurface = IMG_Load("./media/brick.png");
+                SDL_Texture* tempTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+                SDL_FreeSurface(tempSurface);
+                texturesCache["4A"] = tempTexture;
+            }
+            tempTextureVector.push_back(texturesCache["4A"]);
+            loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Block_Brick);
             break;
         case 0:
             break;

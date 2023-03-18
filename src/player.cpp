@@ -9,7 +9,7 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     x = 0;
     y = screenH / 2;
     fallStarterSpeed = PLAYER_BASE_FALL + (screenH - 611);
-    id = 98;
+    id = PlayerEntity;
     isOnGround = false;
     currentXSpeed = 0;
     currentYSpeed = 0;
@@ -133,7 +133,8 @@ void Player::handleFromUpCollision(Entity* entity) {
     PlayerState *newState;
     switch (entity->getId())
     {
-    case Ground:
+    case Block_Brick:
+    case Block_Ground:
         if (currentYSpeed >= 0) {
             isOnGround = true;
             y = (entity->getY() - 1) - h;
@@ -155,12 +156,18 @@ void Player::handleFromUpCollision(Entity* entity) {
 void Player::handleFromDownCollision(Entity* entity) {
     PlayerState* newState;
     switch (entity->getId()) {
-        case Ground:
+        case Block_Ground:
             if (currentYSpeed < 0) {
                 y = entity->getY() + entity->getH();
                 currentYSpeed = 0;
             }
-        break;
+            break;
+        case Block_Brick:
+            if (currentYSpeed < 0) {
+                y = entity->getY() + entity->getH();
+                currentYSpeed = 0;
+                entity->handleFromDownCollision(this);
+            }
         
         default:
             break;
@@ -183,7 +190,8 @@ void Player::handleFromLeftCollision(Entity* entity) {
 void Player::handleFromSideCollision(Entity* entity, bool isRight) {
     PlayerState* newState;
     switch (entity->getId()) {
-        case Ground:
+        case Block_Brick:
+        case Block_Ground:
             if (isRight) x = entity->getX() - 1 - w;
             else x = entity->getX() + entity->getW();
             currentXSpeed = 0;

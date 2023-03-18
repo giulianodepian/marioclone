@@ -12,7 +12,11 @@ extern float lastUpdateTime;
 extern int framesPassed;
 enum entityId {
     Air = 0,
-    Ground,
+    Block_Ground,
+    Block_Solid,
+    Block_Empty,
+    Block_Brick,
+    Block_Question,
     PlayerEntity = 98,
 };
 

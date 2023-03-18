@@ -42,6 +42,10 @@ void Entity::setCurrentAnim(int anim) {
 void Entity::setFlip(bool flip) {
     this->flip = flip;
 }
+void Entity::screenMovement(int playerCurrentSpeed) {
+    x += playerCurrentSpeed - 1;
+}
+
 
 void Entity::render() {
     SDL_RendererFlip renderFlip;

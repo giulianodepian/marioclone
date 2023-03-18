@@ -69,10 +69,20 @@ void Mario::update() {
         // player updates
         player->handleInput();
         player->update();
+
+        std::vector<std::vector<Block*>> blocks = level->getBlocks();
+
+        // block updates
+        std::vector<Block*>::iterator block;
+        for (int i = 0; i < 17; i++) {
+            for (block = blocks[i].begin(); block < blocks[i].end(); block++) {
+                (*block)->update();
+            }
+        }
+
+
         //function to detect collisions
         player->manageScreenEdgesCollition();
-        std::vector<std::vector<Block*>> blocks = level->getBlocks();
-        std::vector<Block*>::iterator block;
         for (int i = 0; i < 17; i++) {
             for (block = blocks[i].begin(); block < blocks[i].end(); block++) {
                 player->detectCollition(*block);

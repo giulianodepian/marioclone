@@ -1,8 +1,8 @@
 CXXFLAGS = -Isrc/include -std=c++0x
 LXXFLAGS = -Lsrc/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
-output: main.o mario.o player.o idleState.o movingState.o fallingState.o level.o block.o entity.o collitionSystem.o jumpState.o
-	g++ main.o mario.o player.o idleState.o movingState.o fallingState.o level.o block.o entity.o collitionSystem.o jumpState.o -o output $(LXXFLAGS) 
+output: main.o mario.o player.o idleState.o movingState.o fallingState.o level.o block.o entity.o collitionSystem.o jumpState.o interactiveBlock.o blockIdleState.o blockBouncingState.o solidBlock.o
+	g++ main.o mario.o player.o idleState.o movingState.o fallingState.o level.o block.o entity.o collitionSystem.o jumpState.o interactiveBlock.o blockIdleState.o blockBouncingState.o solidBlock.o -o output $(LXXFLAGS) 
 
 main.o: src/main.cpp 
 	g++ src/main.cpp -c $(CXXFLAGS) 
@@ -36,3 +36,15 @@ entity.o: src/entity.cpp src/entity.h
 
 collitionSystem.o: src/collitionSystem.cpp src/collitionSystem.h
 	g++ -c src/collitionSystem.cpp $(CXXFLAGS)
+
+interactiveBlock.o: src/interactiveBlock.cpp src/interactiveBlock.h
+	g++ -c src/interactiveBlock.cpp $(CXXFLAGS)
+
+blockIdleState.o: src/blockIdleState.cpp src/blockIdleState.h
+	g++ -c src/blockIdleState.cpp $(CXXFLAGS)
+
+blockBouncingState.o: src/blockBouncingState.cpp src/blockBouncingState.h
+	g++ -c src/blockBouncingState.cpp $(CXXFLAGS)
+
+solidBlock.o: src/solidBlock.cpp src/solidBlock.h
+	g++ -c src/solidBlock.cpp $(CXXFLAGS)

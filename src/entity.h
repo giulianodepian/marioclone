@@ -23,8 +23,7 @@ class Entity {
         void setH(int h);
         void setCurrentAnim(int anim);
         void render();
-        virtual void horizontalMovement(int speed)= 0;
-        virtual void detectCollition(Entity* entity) = 0;
+        void screenMovement(int playerCurrentSpeed);
         virtual void handleFromUpCollision(Entity* entity) = 0;
         virtual void handleFromSideCollision(Entity* entity, bool isRight) = 0;
         virtual void handleFromRightCollision(Entity* entity) = 0;

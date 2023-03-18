@@ -6,6 +6,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "block.h"
+#include "interactiveBlock.h"
+#include "solidBlock.h"
 #include "global.h"
 
 class Level{
