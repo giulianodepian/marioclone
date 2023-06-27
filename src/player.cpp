@@ -159,13 +159,14 @@ void Player::handleFromDownCollision(Entity* entity) {
         case Block_Ground:
             if (currentYSpeed < 0) {
                 y = entity->getY() + entity->getH();
-                currentYSpeed = 0;
+                currentYSpeed = currentYSpeed * -1;
             }
             break;
         case Block_Brick:
             if (currentYSpeed < 0) {
                 y = entity->getY() + entity->getH();
-                currentYSpeed = 0;
+                currentYSpeed = currentYSpeed * -1;
+                //this should be called by small or big player state (To create), since what to do with the block depends on it.
                 entity->handleFromDownCollision(this);
             }
         

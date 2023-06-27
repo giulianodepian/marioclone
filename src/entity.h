@@ -24,6 +24,7 @@ class Entity {
         void setCurrentAnim(int anim);
         void render();
         void screenMovement(int playerCurrentSpeed);
+        // add with what it collides since how to react depends on the state
         virtual void handleFromUpCollision(Entity* entity) = 0;
         virtual void handleFromSideCollision(Entity* entity, bool isRight) = 0;
         virtual void handleFromRightCollision(Entity* entity) = 0;
