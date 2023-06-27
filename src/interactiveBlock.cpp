@@ -1,5 +1,6 @@
 #include "interactiveBlock.h"
 #include "blockIdleState.h"
+#include "blockBouncingState.h"
 #include <cstdio>
 
 InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem)
@@ -12,21 +13,12 @@ InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, int x, int y, int w, 
 }
 
 void InteractiveBlock::handleFromDownCollision(Entity* entity) {
-    BlockState* newState;
-    switch (entity->getId())
-    {
-    case PlayerEntity:
-        newState = blockState->handleFromDownCollision(this);
-        if (newState != NULL) {
-            delete blockState;
-            blockState = newState;
-        }
-        break;
-    
-    default:
-        break;
-    }
 
+}
+
+void InteractiveBlock::startBouncing(){
+    delete blockState;
+    blockState = new BlockBouncingState(); 
 }
 
 void InteractiveBlock::update() {

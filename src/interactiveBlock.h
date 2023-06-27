@@ -17,6 +17,7 @@ class InteractiveBlock : public Block {
         virtual void handleFromLeftCollision(Entity* entity);
         virtual void handleFromDownCollision(Entity* entity);
         virtual void handleNoCollision();
+        void startBouncing();
         BlockState* blockState;
     private:
         int originalY;

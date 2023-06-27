@@ -1,6 +1,7 @@
 #include "player.h"
 #include "idleState.h"
 #include "fallingState.h"
+#include "interactiveBlock.h"
 #include <cstdio>
 
 Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
@@ -167,7 +168,7 @@ void Player::handleFromDownCollision(Entity* entity) {
                 y = entity->getY() + entity->getH();
                 currentYSpeed = currentYSpeed * -1;
                 //this should be called by small or big player state (To create), since what to do with the block depends on it.
-                entity->handleFromDownCollision(this);
+                ((InteractiveBlock*) entity)->startBouncing();
             }
         
         default:
