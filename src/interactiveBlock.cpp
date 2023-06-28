@@ -16,7 +16,7 @@ void InteractiveBlock::handleFromDownCollision(Entity* entity) {
     switch (entity->getId())
     {
     case PlayerEntity:
-        newState = blockState->handleFromDownCollision(this);
+        newState = blockState->handleFromDownCollision(this, entity);
         if (newState != NULL) {
             delete blockState;
             blockState = newState;

@@ -11,9 +11,9 @@ class BlockState {
         virtual ~BlockState() {};
         virtual void update(InteractiveBlock* block) = 0;
         virtual void onEntry(InteractiveBlock* block) = 0;
-        virtual BlockState* handleFromUpCollision(InteractiveBlock* block) = 0;
-        virtual BlockState* handleFromSideCollision(InteractiveBlock* block) = 0;
-        virtual BlockState* handleFromDownCollision(InteractiveBlock* block) = 0;
+        virtual BlockState* handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) = 0;
+        virtual BlockState* handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) = 0;
+        virtual BlockState* handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) = 0;
         virtual BlockState* handleNoCollision(InteractiveBlock* block) = 0;
 };
 

@@ -166,7 +166,6 @@ void Player::handleFromDownCollision(Entity* entity) {
             if (currentYSpeed < 0) {
                 y = entity->getY() + entity->getH();
                 currentYSpeed = currentYSpeed * -1;
-                //this should be called by small or big player state (To create), since what to do with the block depends on it.
                 entity->handleFromDownCollision(this);
             }
         

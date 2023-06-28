@@ -5,15 +5,15 @@ void BlockBouncingState::update(InteractiveBlock* block) {
     block->bounce();
 }
 
-BlockState* BlockBouncingState::handleFromDownCollision(InteractiveBlock* block) {
+BlockState* BlockBouncingState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockBouncingState::handleFromUpCollision(InteractiveBlock* block) {
+BlockState* BlockBouncingState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockBouncingState::handleFromSideCollision(InteractiveBlock* block) {
+BlockState* BlockBouncingState::handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
