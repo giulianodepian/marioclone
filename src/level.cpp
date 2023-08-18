@@ -122,8 +122,7 @@ void Level::loadColumn(int columnNumber) {
 void Level::deleteColumn(int columnNumber) {
     std::vector<Block*>::iterator block;
     int columnToDelete;
-    if (columnNumber != 0) columnToDelete = columnNumber%17;
-    else columnToDelete = 0;
+    columnToDelete = columnNumber%17;
     for (block = blocks[columnToDelete].begin(); block != blocks[columnToDelete].end(); block++) {
         delete *block;
     }
