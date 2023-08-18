@@ -24,7 +24,7 @@ class Level{
         void clearCache();
         void loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id);
     private:
-        int currentLevelData[400][12];
+        uint8_t currentLevelData[400][12];
         int firstColumn; //Starts in 0
         int lastColumn; //starts in 16
         int levelSize; //In Columns

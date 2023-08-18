@@ -6,7 +6,7 @@
 Level::Level(SDL_Renderer* renderer) {
     Level::renderer = renderer;
     levelSize = 32;
-    int dummyLevelData[32][12] = {
+    uint8_t dummyLevelData[32][12] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 1},
