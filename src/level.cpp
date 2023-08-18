@@ -72,13 +72,11 @@ void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector
         case Air:
         case Block_Ground:
             block = new SolidBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
-            if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-            else blocks[0].push_back(block);
+            blocks[columnNumber%17].push_back(block);
             break;
         case Block_Brick:
             block = new InteractiveBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
-            if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-            else blocks[0].push_back(block);
+            blocks[columnNumber%17].push_back(block);
             break;
         default:
             break;
@@ -118,10 +116,6 @@ void Level::loadColumn(int columnNumber) {
         default:
             break;
         }
-        /*
-        if (columnNumber != 0) blocks[columnNumber%17].push_back(block);
-        else blocks[0].push_back(block);
-        */
     }
 }
 
