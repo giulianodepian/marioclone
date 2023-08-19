@@ -1,7 +1,7 @@
 #include "block.h"
 #include <cstdio>
 
-Block::Block(SDL_Renderer *renderer, int x, int y ,int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem) {
+Block::Block(SDL_Renderer *renderer, float x, float y ,int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem) {
     this->x = x;
     this->y = y;
     this->w = w;

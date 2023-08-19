@@ -43,15 +43,15 @@ Player::~Player(){
     //Destroy Textures
 }
 
-int Player::getXAcceleration() {
+float Player::getXAcceleration() {
     return xAcceleration;
 }
 
-int Player::getCurrentXSpeed() {
+float Player::getCurrentXSpeed() {
     return currentXSpeed;
 }
 
-int Player::getCurrentYSpeed() {
+float Player::getCurrentYSpeed() {
     return currentYSpeed;
 }
 
@@ -77,17 +77,16 @@ void Player::stopMovement() {
     x += currentXSpeed * (deltaTime * 0.001);
 }
 
-void Player::horizontalMovement(int acceleration) {
+void Player::horizontalMovement(float acceleration) {
     currentXSpeed += acceleration;
     if (currentXSpeed > maxSpeedX) currentXSpeed = maxSpeedX;
     else if (currentXSpeed < -maxSpeedX) currentXSpeed = -maxSpeedX;
     //(deltaTime * 0.001) Converts deltaTime miliseconds to seconds
     //Adds or substract 1 since that the min speed
-    if (acceleration > 0) x += currentXSpeed * (deltaTime * 0.001) + 1;
-    else x += currentXSpeed * (deltaTime * 0.001) - 1;
+    x += currentXSpeed * (deltaTime * 0.001);
 }
 
-void Player::verticalMovement(int acceleration) {
+void Player::verticalMovement(float acceleration) {
     currentYSpeed += acceleration;
     if (currentYSpeed > maxSpeedY) currentYSpeed = maxSpeedY;
     y += currentYSpeed * (deltaTime * 0.001);

@@ -13,7 +13,7 @@
 
 class Block : public Entity {
     public:
-        Block(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
+        Block(SDL_Renderer *renderer, float x, float y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
         ~Block();
         virtual void update()= 0;
         virtual void handleFromUpCollision(Entity* entity)= 0;

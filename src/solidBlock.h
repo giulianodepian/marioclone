@@ -4,7 +4,7 @@
 
 class SolidBlock : public Block {
     public:
-        SolidBlock(SDL_Renderer *renderer, int x, int y ,int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
+        SolidBlock(SDL_Renderer *renderer, float x, float y ,int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
         virtual void update();
         virtual void handleFromUpCollision(Entity* entity);
         virtual void handleFromSideCollision(Entity* entity, bool isRight);

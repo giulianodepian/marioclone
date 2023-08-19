@@ -17,13 +17,13 @@ class Entity {
         int getAnimSpeed();
         bool doWeFlip();
         void setFlip(bool flip);
-        void setX(int x);
-        void setY(int y);
+        void setX(float x);
+        void setY(float y);
         void setW(int w);
         void setH(int h);
         void setCurrentAnim(int anim);
         void render();
-        void screenMovement(int playerCurrentSpeed);
+        void screenMovement(float playerCurrentSpeed);
         // add with what it collides since how to react depends on the state
         virtual void handleFromUpCollision(Entity* entity) = 0;
         virtual void handleFromSideCollision(Entity* entity, bool isRight) = 0;
@@ -33,8 +33,8 @@ class Entity {
         virtual void handleNoCollision() = 0;
     protected:
         int id;
-        int x;
-        int y;
+        float x;
+        float y;
         int w;
         int h;
         int currentAnim;

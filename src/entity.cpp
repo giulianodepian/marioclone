@@ -24,10 +24,10 @@ int Entity::getAnimSpeed() {
 bool Entity::doWeFlip() {
     return flip;
 }
-void Entity::setX(int x) {
+void Entity::setX(float x) {
     this->x = x;
 }
-void Entity::setY(int y){
+void Entity::setY(float y){
     this->y = y;
 }
 void Entity::setW(int w){
@@ -42,7 +42,7 @@ void Entity::setCurrentAnim(int anim) {
 void Entity::setFlip(bool flip) {
     this->flip = flip;
 }
-void Entity::screenMovement(int playerCurrentSpeed) {
+void Entity::screenMovement(float playerCurrentSpeed) {
     x += playerCurrentSpeed - 1;
 }
 
@@ -52,8 +52,8 @@ void Entity::render() {
     if (flip) renderFlip = SDL_FLIP_HORIZONTAL;
     else renderFlip = SDL_FLIP_NONE;
     SDL_Rect rect;
-    rect.x = x;
-    rect.y = y;
+    rect.x = (int)x;
+    rect.y = (int)y;
     rect.w = w;
     rect.h = h;
     SDL_RenderCopyEx(renderer, entityTextures[currentAnim], NULL, &rect, 0.0, NULL, renderFlip);

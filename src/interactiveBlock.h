@@ -8,7 +8,7 @@ class BlockState;
 
 class InteractiveBlock : public Block {
     public:
-        InteractiveBlock(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
+        InteractiveBlock(SDL_Renderer *renderer, float x, float y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem);
         void bounce();
         virtual void update();
         virtual void handleFromUpCollision(Entity* entity);

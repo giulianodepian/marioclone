@@ -22,17 +22,17 @@ class Player : public Entity {
         ~Player();
         void handleInput();
         void update();
-        int getXAcceleration();
+        float getXAcceleration();
         int getGravity();
-        int getCurrentXSpeed();
-        int getCurrentYSpeed();
+        float getCurrentXSpeed();
+        float getCurrentYSpeed();
         int getMaxSpeedY();
         int getFallStarterSpeed();
         void setCurrentYSpeed(int currentYSpeed);
         PlayerState* getMoveState();
         void stopMovement();
-        void horizontalMovement(int acceleration);
-        void verticalMovement(int acceleration);
+        void horizontalMovement(float acceleration);
+        void verticalMovement(float acceleration);
         void onAirManager();
         void manageScreenEdgesCollition();
         void detectCollition(Entity* entity);
@@ -43,9 +43,9 @@ class Player : public Entity {
         virtual void handleFromDownCollision(Entity* entity);
         virtual void handleNoCollision();
     private:
-        int xAcceleration;
-        int currentYSpeed;
-        int currentXSpeed;
+        float xAcceleration;
+        float currentYSpeed;
+        float currentXSpeed;
         int gravity;
         int maxSpeedX;
         int maxSpeedY;

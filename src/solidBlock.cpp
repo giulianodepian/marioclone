@@ -1,6 +1,6 @@
 #include "solidBlock.h"
 
-SolidBlock::SolidBlock(SDL_Renderer *renderer, int x, int y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem)
+SolidBlock::SolidBlock(SDL_Renderer *renderer, float x, float y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem)
 : Block(renderer, x, y, w, h, entityTextures, id, collisionSystem) {
 
 }
