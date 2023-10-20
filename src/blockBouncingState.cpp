@@ -3,6 +3,13 @@
 
 void BlockBouncingState::update(InteractiveBlock* block) {
     block->bounce();
+    if (block->getId() == Block_Question) {
+        //Change glowin animation
+        if(framesPassed%block->getAnimSpeed() == 0) {
+            if (block->getCurrentAnim() + 1 < 3) block->setCurrentAnim(block->getCurrentAnim() + 1);
+            else block->setCurrentAnim(0);
+        }
+    }
 }
 
 BlockState* BlockBouncingState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {

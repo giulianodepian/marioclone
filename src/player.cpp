@@ -162,6 +162,7 @@ void Player::handleFromDownCollision(Entity* entity) {
             }
             break;
         case Block_Brick:
+        case Block_Question:
             if (currentYSpeed < 0) {
                 y = entity->getY() + entity->getH();
                 currentYSpeed = currentYSpeed * -1;

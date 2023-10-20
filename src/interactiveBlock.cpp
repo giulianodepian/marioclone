@@ -9,6 +9,7 @@ InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, float x, float y, int
     maxY = y - (this->h / 2);
     speedY = -200;
     blockState = new BlockIdleState();
+    animSpeed = 20;
 }
 
 void InteractiveBlock::handleFromDownCollision(Entity* entity) {

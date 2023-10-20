@@ -2,7 +2,13 @@
 #include "blockBouncingState.h"
 
 void BlockIdleState::update(InteractiveBlock* block) {
-    //Stay Still
+    if (block->getId() == Block_Question) {
+        //Change glowin animation
+        if(framesPassed%block->getAnimSpeed() == 0) {
+            if (block->getCurrentAnim() + 1 < 3) block->setCurrentAnim(block->getCurrentAnim() + 1);
+            else block->setCurrentAnim(0);
+        }
+    }
 }
 
 void BlockIdleState::onEntry(InteractiveBlock* block) {
