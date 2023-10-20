@@ -14,10 +14,10 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     currentXSpeed = 0;
     currentYSpeed = 0;
     flip = false;
-    xAcceleration = PLAYER_ACCELERATION_BASE;
-    gravity = PLAYER_BASE_GRAVITY;
-    maxSpeedX = PLAYER_MAX_SPEED_BASE;
-    maxSpeedY = PLAYER_MAX_SPEED_Y_BASE;
+    xAcceleration = PLAYER_ACCELERATION_BASE + (screenH - 611);
+    gravity = PLAYER_BASE_GRAVITY + (screenH - 611);
+    maxSpeedX = PLAYER_MAX_SPEED_BASE + (screenH - 611);
+    maxSpeedY = PLAYER_MAX_SPEED_Y_BASE + (screenH - 611);
     playerState = new IdleState();
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
@@ -134,6 +134,7 @@ void Player::handleFromUpCollision(Entity* entity) {
     {
     case Block_Brick:
     case Block_Ground:
+    case Block_Question:
         if (currentYSpeed >= 0) {
             isOnGround = true;
             y = (entity->getY() - 1) - h;
