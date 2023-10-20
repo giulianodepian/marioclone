@@ -23,12 +23,12 @@ void FallingState::onEntry(Player* player) {
     player->setCurrentYSpeed(player->getFallStarterSpeed());
 }
 
-PlayerState* FallingState::handleFromUpCollision(Player* player) {
+PlayerState* FallingState::handleFromDownCollision(Player* player) {
     return new IdleState();
 }
 
-PlayerState* FallingState::handleFromDownCollision(Player* player) {
-
+PlayerState* FallingState::handleFromUpCollision(Player* player) {
+    return NULL;
 }
 
 PlayerState* FallingState::handleFromSideCollision(Player* player) {

@@ -53,7 +53,7 @@ void MovingState::onEntry(Player* player) {
 }
 
 PlayerState* MovingState::handleFromDownCollision(Player* player) {
-
+    return NULL;
 }
 
 PlayerState* MovingState::handleFromSideCollision(Player* player) {

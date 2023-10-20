@@ -128,7 +128,7 @@ void Player::manageScreenEdgesCollition() {
     }
 }
 
-void Player::handleFromUpCollision(Entity* entity) {
+void Player::handleFromDownCollision(Entity* entity) {
     PlayerState *newState;
     switch (entity->getId())
     {
@@ -139,7 +139,7 @@ void Player::handleFromUpCollision(Entity* entity) {
             isOnGround = true;
             y = (entity->getY() - 1) - h;
             currentYSpeed = 0;
-            newState = playerState->handleFromUpCollision(this);
+            newState = playerState->handleFromDownCollision(this);
             if (newState != NULL) {
                 delete playerState;
                 playerState = newState;
@@ -153,7 +153,7 @@ void Player::handleFromUpCollision(Entity* entity) {
     }
 }
 
-void Player::handleFromDownCollision(Entity* entity) {
+void Player::handleFromUpCollision(Entity* entity) {
     PlayerState* newState;
     switch (entity->getId()) {
         case Block_Ground:

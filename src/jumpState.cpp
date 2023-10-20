@@ -30,7 +30,7 @@ void JumpState::onEntry(Player* player) {
     player->setCurrentYSpeed(player->getMaxSpeedY() * -1);
 }
 
-PlayerState* JumpState::handleFromDownCollision(Player* player) {
+PlayerState* JumpState::handleFromUpCollision(Player* player) {
     return NULL;
 }
 
@@ -38,7 +38,7 @@ PlayerState* JumpState::handleFromSideCollision(Player* player) {
     return NULL;
 }
 
-PlayerState* JumpState::handleFromUpCollision(Player* player) {
+PlayerState* JumpState::handleFromDownCollision(Player* player) {
     if (player->getCurrentXSpeed() != 0) return new MovingState();
     else return new IdleState(); 
 }

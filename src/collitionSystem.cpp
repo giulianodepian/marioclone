@@ -12,13 +12,13 @@ void CollitionSystem::detectCollition(Entity* entitySrc, Entity* entityDst) {
             int rightCollition = entitySrc->getX() + entitySrc->getW() - entityDst->getX();
             int leftCollition = entityDst->getX() + entityDst->getW() - entitySrc->getX();
             if (topCollition < bottomCollition && topCollition < rightCollition && topCollition < leftCollition) {  
-                entitySrc->handleFromUpCollision(entityDst);
+                entitySrc->handleFromDownCollision(entityDst);
             } else if (rightCollition < leftCollition && rightCollition < topCollition && rightCollition < bottomCollition) {
                 entitySrc->handleFromRightCollision(entityDst);
             } else if (leftCollition < rightCollition && leftCollition < topCollition && leftCollition < bottomCollition) {
                 entitySrc->handleFromLeftCollision(entityDst);
             } else {
-                entitySrc->handleFromDownCollision(entityDst);
+                entitySrc->handleFromUpCollision(entityDst);
             }
         }
     }
