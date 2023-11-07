@@ -14,9 +14,9 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     currentXSpeed = 0;
     currentYSpeed = 0;
     flip = false;
-    xAcceleration = PLAYER_ACCELERATION_BASE + (screenH - 611);
+    xAcceleration = PLAYER_ACCELERATION_BASE + (screenW - 800);
     gravity = PLAYER_BASE_GRAVITY + (screenH - 611);
-    maxSpeedX = PLAYER_MAX_SPEED_BASE + (screenH - 611);
+    maxSpeedX = PLAYER_MAX_SPEED_BASE + (screenW - 800);
     maxSpeedY = PLAYER_MAX_SPEED_Y_BASE + (screenH - 611);
     playerState = new IdleState();
     this->renderer = renderer;

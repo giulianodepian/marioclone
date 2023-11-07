@@ -24,7 +24,8 @@ Mario::Mario(){
     //Render Context for Window
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
     player = new Player(renderer, CollitionSystem::instance());
-    level = new Level(renderer);
+    level = Level::instance();
+    level->init(renderer);
 }
 
 Mario::~Mario() {

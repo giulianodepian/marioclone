@@ -12,7 +12,7 @@
 
 class Level{
     public:
-        Level(SDL_Renderer* renderer);
+        Level();
         ~Level();
         void horizontalMovement(int playerCurrentSpeed);
         void loadColumn(int columnNumber);
@@ -24,6 +24,9 @@ class Level{
         void clearCache();
         void loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id);
         void checkAndCacheTexture(std::string textureResource, std::string cacheId);
+        void init(SDL_Renderer* renderer);
+        static Level* instance();
+        void markForDeletion(Entity* entity);
     private:
         uint8_t currentLevelData[400][12];
         int firstColumn; //Starts in 0
@@ -31,6 +34,7 @@ class Level{
         int levelSize; //In Columns
         std::map<std::string, SDL_Texture*> texturesCache; 
         std::vector<std::vector<Block*>> blocks;
+        std::vector<Entity*> entitiesToDelete;
         // std::vector<entity*> entities; Entities List
         SDL_Renderer* renderer;
 };

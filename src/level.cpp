@@ -3,9 +3,17 @@
 #include <cstring>
 #include <cstdio>
 
-Level::Level(SDL_Renderer* renderer) {
-    Level::renderer = renderer;
+Level::Level() {
+
+}
+
+Level::~Level() {
+    clearCache();
+}
+
+void Level::init(SDL_Renderer* renderer) {
     levelSize = 32;
+    Level::renderer = renderer;
     uint8_t dummyLevelData[32][12] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -53,8 +61,9 @@ Level::Level(SDL_Renderer* renderer) {
     };
 }
 
-Level::~Level() {
-    clearCache();
+Level* Level::instance() {
+    static Level* instance = new Level();
+    return instance;
 }
 
 void Level::checkAndCacheTexture(std::string textureResource, std::string cacheId) {
@@ -64,6 +73,10 @@ void Level::checkAndCacheTexture(std::string textureResource, std::string cacheI
         SDL_FreeSurface(tempSurface);
         texturesCache[cacheId] = tempTexture;
      }
+}
+
+void Level::markForDeletion(Entity* entity) {
+    entitiesToDelete.push_back(entity);
 }
 
 void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector<SDL_Texture*> tempTextureVector, int id) {
