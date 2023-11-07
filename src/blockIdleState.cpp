@@ -16,7 +16,26 @@ void BlockIdleState::onEntry(InteractiveBlock* block) {
 }
 
 BlockState* BlockIdleState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
-    return new BlockBouncingState();
+    switch (dstEntity->getId())
+    {
+    case PlayerEntity:
+        //TODO: Change since Blocks with differents items will have different Ids
+        if (block->getId() == Block_Question && block->getCantItems() <= 1 || 
+            block->getId() == Block_Brick && block->getCantItems() == 1) {
+            block->setId(Block_Empty);
+            if (block->getCantItems() == 1) {
+                //Give Item
+            }
+            return new BlockBouncingState();
+        }
+        if (block->getId() != Block_Empty) return new BlockBouncingState();
+        break;
+    
+    default:
+        break;
+    }
+    return NULL;
+    
 }
 
 BlockState* BlockIdleState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {

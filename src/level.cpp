@@ -93,12 +93,13 @@ void Level::loadGrid(int h, int w, int columnNumber, int gridNumber, std::vector
     {
         case Air:
         case Block_Ground:
+        case Block_Empty:
             block = new SolidBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
             blocks[columnNumber%17].push_back(block);
             break;
         case Block_Brick:
         case Block_Question:
-            block = new InteractiveBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance());
+            block = new InteractiveBlock(renderer, x, y, w, h, tempTextureVector, id, CollitionSystem::instance(), 0);
             blocks[columnNumber%17].push_back(block);
             break;
         default:
@@ -121,17 +122,27 @@ void Level::loadColumn(int columnNumber) {
             break;
         case Block_Brick:
             checkAndCacheTexture("./media/brick.png", "4A");
+            checkAndCacheTexture("./media/empty.png", "6A");
             tempTextureVector.push_back(texturesCache["4A"]);
+            tempTextureVector.push_back(texturesCache["6A"]);
             loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Block_Brick);
             break;
         case Block_Question:
             checkAndCacheTexture("./media/question1.png", "5A");
             checkAndCacheTexture("./media/question2.png", "5B");
             checkAndCacheTexture("./media/question3.png", "5C");
+            checkAndCacheTexture("./media/empty.png", "6A");
             tempTextureVector.push_back(texturesCache["5A"]);
             tempTextureVector.push_back(texturesCache["5B"]);
             tempTextureVector.push_back(texturesCache["5C"]);
+            tempTextureVector.push_back(texturesCache["6A"]);
             loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Block_Question);
+            break;
+        case Block_Empty:
+            checkAndCacheTexture("./media/empty.png", "6A");
+            tempTextureVector.push_back(texturesCache["6A"]);
+            loadGrid(BLOCK_BASE_HEIGHT, BLOCK_BASE_WIDTH, columnNumber, i, tempTextureVector, Block_Empty);
+            break;
         case 0:
             break;
         default:

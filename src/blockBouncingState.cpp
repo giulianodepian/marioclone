@@ -29,5 +29,7 @@ BlockState* BlockBouncingState::handleNoCollision(InteractiveBlock* block) {
 }
 
 void BlockBouncingState::onEntry(InteractiveBlock* block) {
-    //nothing
+    if (block->getId() == Block_Empty) {
+        block->setCurrentAnim(block->getTexturesLenght() - 1);
+    }
 }

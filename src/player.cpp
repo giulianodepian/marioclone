@@ -135,6 +135,7 @@ void Player::handleFromDownCollision(Entity* entity) {
     case Block_Brick:
     case Block_Ground:
     case Block_Question:
+    case Block_Empty:
         if (currentYSpeed >= 0) {
             isOnGround = true;
             y = (entity->getY() - 1) - h;
@@ -156,14 +157,10 @@ void Player::handleFromDownCollision(Entity* entity) {
 void Player::handleFromUpCollision(Entity* entity) {
     PlayerState* newState;
     switch (entity->getId()) {
-        case Block_Ground:
-            if (currentYSpeed < 0) {
-                y = entity->getY() + entity->getH();
-                currentYSpeed = currentYSpeed * -1;
-            }
-            break;
         case Block_Brick:
         case Block_Question:
+        case Block_Empty:
+        case Block_Ground:
             if (currentYSpeed < 0) {
                 if (x + (w / 4) > ((entity->getX() + entity->getW()) - (entity->getW() / 4))) {
                     x = x + (maxSpeedX * (deltaTime * 0.001));
@@ -175,7 +172,7 @@ void Player::handleFromUpCollision(Entity* entity) {
                     entity->handleFromDownCollision(this);
                 }
             }
-        
+            break;
         default:
             break;
     }
@@ -200,6 +197,7 @@ void Player::handleFromSideCollision(Entity* entity, bool isRight) {
         case Block_Brick:
         case Block_Ground:
         case Block_Question:
+        case Block_Empty:
             if (isRight) x = entity->getX() - 1 - w;
             else x = entity->getX() + entity->getW() + 1;
             currentXSpeed = 0;

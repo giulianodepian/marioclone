@@ -15,12 +15,14 @@ class Entity {
         int getId();
         int getCurrentAnim();
         int getAnimSpeed();
+        uint8_t getTexturesLenght();
         bool doWeFlip();
         void setFlip(bool flip);
         void setX(float x);
         void setY(float y);
         void setW(int w);
         void setH(int h);
+        void setId(uint8_t id);
         void setCurrentAnim(int anim);
         void render();
         void screenMovement(float playerCurrentSpeed);

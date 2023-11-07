@@ -21,6 +21,9 @@ int Entity::getCurrentAnim() {
 int Entity::getAnimSpeed() {
     return animSpeed;
 }
+uint8_t Entity::getTexturesLenght() {
+    return entityTextures.size();
+}
 bool Entity::doWeFlip() {
     return flip;
 }
@@ -38,6 +41,9 @@ void Entity::setH(int h){
 }
 void Entity::setCurrentAnim(int anim) {
     currentAnim = anim;
+}
+void Entity::setId(uint8_t id) {
+    this->id = id;
 }
 void Entity::setFlip(bool flip) {
     this->flip = flip;

@@ -2,7 +2,7 @@
 #include "blockIdleState.h"
 #include <cstdio>
 
-InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, float x, float y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem)
+InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, float x, float y, int w, int h, std::vector<SDL_Texture*> entityTextures, int id, CollitionSystem* collisionSystem,  uint8_t cantItems)
 : Block(renderer, x, y, w, h, entityTextures, id, collisionSystem) 
 {
     originalY = y;
@@ -10,24 +10,17 @@ InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, float x, float y, int
     speedY = -200;
     blockState = new BlockIdleState();
     animSpeed = 20;
+    this->cantItems = cantItems;
 }
 
 void InteractiveBlock::handleFromDownCollision(Entity* entity) {
     BlockState* newState;
-    switch (entity->getId())
-    {
-    case PlayerEntity:
-        newState = blockState->handleFromDownCollision(this, entity);
-        if (newState != NULL) {
-            delete blockState;
-            blockState = newState;
-        }
-        break;
-    
-    default:
-        break;
+    newState = blockState->handleFromDownCollision(this, entity);
+    if (newState != NULL) {
+        delete blockState;
+        blockState = newState;
+        blockState->onEntry(this);
     }
-
 }
 
 void InteractiveBlock::update() {
@@ -45,6 +38,14 @@ void InteractiveBlock::bounce() {
         delete blockState;
         blockState = new BlockIdleState();
     }
+}
+
+uint8_t InteractiveBlock::getCantItems() {
+    return cantItems;
+}
+
+void InteractiveBlock::setCantItems(uint8_t cant) {
+    cantItems = cant;
 }
 
 void InteractiveBlock::handleFromUpCollision(Entity* entity) {
