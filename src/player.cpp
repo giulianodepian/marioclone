@@ -198,7 +198,7 @@ void Player::handleFromSideCollision(Entity* entity, bool isRight) {
         case Block_Ground:
         case Block_Question:
         case Block_Empty:
-            if (isRight) x = entity->getX() - 1 - w;
+            if (isRight) x = entity->getX() - w;
             else x = entity->getX() + entity->getW() + 1;
             currentXSpeed = 0;
             newState = playerState->handleFromSideCollision(this);
