@@ -49,7 +49,7 @@ void MovingState::update(Player* player) {
 
 void MovingState::onEntry(Player* player) {
     player->setCurrentAnim(3);
-    player->setCurrentYSpeed(0);
+    //player->setCurrentYSpeed(0);
 }
 
 PlayerState* MovingState::handleFromDownCollision(Player* player) {
