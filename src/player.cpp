@@ -19,6 +19,8 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     maxSpeedX = PLAYER_MAX_SPEED_BASE + (screenW - 800);
     maxSpeedY = PLAYER_MAX_SPEED_Y_BASE + (screenH - 611);
     playerState = new IdleState();
+    inputSystem = new InputSystem();
+    loadMarioInputs();
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
     loadMarioSprites("./media/marioIdle.png");
@@ -28,6 +30,21 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     loadMarioSprites("./media/marioJump.png");
     currentAnim = 0;
     animSpeed = 5;
+}
+
+void Player::loadMarioInputs() {
+    //TODO: Check if config file exist, if not, load default input config
+    std::map<uint8_t, SDL_Scancode> inputMap;
+    inputMap[LEFT] = SDL_SCANCODE_LEFT;
+    inputMap[RIGHT] = SDL_SCANCODE_RIGHT;
+    inputMap[JUMP] = SDL_SCANCODE_Z;
+    inputMap[RUN] = SDL_SCANCODE_X;
+    inputMap[DOWN] = SDL_SCANCODE_DOWN;
+    inputSystem->setActions(inputMap);
+}
+
+std::map<uint8_t, bool> Player::getActiveActions() {
+    return inputSystem->getActiveActiones();
 }
 
 void Player::loadMarioSprites(const char* spritePath) {
@@ -71,6 +88,7 @@ void Player::setCurrentYSpeed(int currentYSpeed) {
     this->currentYSpeed = currentYSpeed;
 }
 
+//All this movements could be a Physics component
 void Player::stopMovement() {
     if (currentXSpeed < 0) currentXSpeed += xAcceleration;
     else if (currentXSpeed > 0) currentXSpeed -= xAcceleration;
@@ -93,6 +111,7 @@ void Player::verticalMovement(float acceleration) {
 }
 
 void Player::handleInput() {
+    inputSystem->activateActions();
     //newState != NULL if we have to change to a new state (change to state returned by handleInput)
     PlayerState *newState = playerState->handleInput(this);
     if (newState != NULL) {

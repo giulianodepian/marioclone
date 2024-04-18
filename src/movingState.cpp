@@ -8,13 +8,13 @@
 #include <cstdio>
 
 PlayerState* MovingState::handleInput(Player* player) {
-    if (!keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+    if (!player->getActiveActions()[RIGHT] && !player->getActiveActions()[LEFT]) {
         return new IdleState();
     }
-    if (keyboardState[SDL_SCANCODE_RIGHT] && keyboardState[SDL_SCANCODE_LEFT]) {
+    if (player->getActiveActions()[RIGHT] && player->getActiveActions()[LEFT]) {
         return new IdleState();
     }
-    if (keyboardState[SDL_SCANCODE_Z]) {
+    if (player->getActiveActions()[JUMP]) {
         return new JumpState();
     }
 
@@ -23,7 +23,7 @@ PlayerState* MovingState::handleInput(Player* player) {
 
 void MovingState::update(Player* player) {
     //Set Moving Graphic
-    if (keyboardState[SDL_SCANCODE_RIGHT]) {
+    if (player->getActiveActions()[RIGHT]) {
         if (framesPassed%player->getAnimSpeed() == 0) {
             if (player->getCurrentAnim() == 3) {
                 player->setCurrentAnim(1);
@@ -34,7 +34,7 @@ void MovingState::update(Player* player) {
         player->setFlip(false);
         player->horizontalMovement(player->getXAcceleration());
     }
-    else if (keyboardState[SDL_SCANCODE_LEFT]) {
+    else if (player->getActiveActions()[LEFT]) {
         if (framesPassed%player->getAnimSpeed() == 0) {
             if (player->getCurrentAnim() == 3) {
                 player->setCurrentAnim(1);

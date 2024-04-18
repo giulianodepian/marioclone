@@ -8,13 +8,13 @@
 #include <cstdio>
 
 PlayerState* IdleState::handleInput(Player* player) {
-    if (keyboardState[SDL_SCANCODE_Z]) {
+    if (player->getActiveActions()[JUMP]) {
         return new JumpState();
     }
-    if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+    if (player->getActiveActions()[RIGHT] && !player->getActiveActions()[LEFT]) {
         return new MovingState();
     }
-    if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
+    if (player->getActiveActions()[LEFT] && !player->getActiveActions()[RIGHT]) {
         return new MovingState();
     }
 

@@ -112,6 +112,7 @@ void Mario::render(){
     player->render();
 
     //render Blocks
+    //TODO: Change to render entities in general
     std::vector<std::vector<Block*>> blocks = level->getBlocks();
     std::vector<Block*>::iterator block;
     for (int i = 0; i < 17; i++) {

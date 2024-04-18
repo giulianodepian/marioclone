@@ -14,8 +14,8 @@ PlayerState* FallingState::handleInput(Player* player) {
 
 void FallingState::update(Player* player) {
     player->verticalMovement(player->getGravity());
-    if (keyboardState[SDL_SCANCODE_RIGHT]) player->horizontalMovement(player->getXAcceleration());
-    else if (keyboardState[SDL_SCANCODE_LEFT]) player->horizontalMovement(player->getXAcceleration() * -1);
+    if (player->getActiveActions()[RIGHT]) player->horizontalMovement(player->getXAcceleration());
+    else if (player->getActiveActions()[LEFT]) player->horizontalMovement(player->getXAcceleration() * -1);
     else player->stopMovement();
 }
 

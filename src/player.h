@@ -6,7 +6,10 @@
 #include "collitionSystem.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "inputSystem.h"
+#include <map>
 class PlayerState;
+class InputSystem;
 
 #define PLAYER_WIDTH 47
 #define PLAYER_HEIGHT 50
@@ -15,6 +18,14 @@ class PlayerState;
 #define PLAYER_MAX_SPEED_BASE 200
 #define PLAYER_MAX_SPEED_Y_BASE 300
 #define PLAYER_BASE_FALL 100
+
+enum PlayerActions {
+    LEFT,
+    RIGHT,
+    DOWN,
+    JUMP,
+    RUN
+};
 
 class Player : public Entity {
     public:
@@ -36,6 +47,7 @@ class Player : public Entity {
         void onAirManager();
         void manageScreenEdgesCollition();
         void detectCollition(Entity* entity);
+        std::map<uint8_t, bool> getActiveActions();
         virtual void handleFromUpCollision(Entity* entity);
         virtual void handleFromSideCollision(Entity* entity, bool isRight);
         virtual void handleFromRightCollision(Entity* entity);
@@ -52,8 +64,10 @@ class Player : public Entity {
         int isOnGround;
         int fallStarterSpeed;
         void loadMarioSprites(const char* spritePath);
+        void loadMarioInputs();
         PlayerState* playerState;
         CollitionSystem* collisionSystem;
+        InputSystem* inputSystem;
 };
 
 #endif
