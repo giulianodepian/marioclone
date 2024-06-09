@@ -7,9 +7,8 @@
 #include "global.h"
 #include <cstdio>
 
-PlayerState* FallingState::handleInput(Player* player) {
-    //Not Used
-    return NULL;
+std::unique_ptr<PlayerState> FallingState::handleInput(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
 void FallingState::update(Player* player) {
@@ -23,18 +22,18 @@ void FallingState::onEntry(Player* player) {
     player->setCurrentYSpeed(player->getFallStarterSpeed());
 }
 
-PlayerState* FallingState::handleFromDownCollision(Player* player) {
-    return new IdleState();
+std::unique_ptr<PlayerState> FallingState::handleFromDownCollision(Player* player) {
+    return std::unique_ptr<PlayerState>(new IdleState);
 }
 
-PlayerState* FallingState::handleFromUpCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> FallingState::handleFromUpCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
-PlayerState* FallingState::handleFromSideCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> FallingState::handleFromSideCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
-PlayerState* FallingState::handleNoCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> FallingState::handleNoCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }

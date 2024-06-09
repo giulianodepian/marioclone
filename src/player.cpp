@@ -18,8 +18,7 @@ Player::Player(SDL_Renderer *renderer, CollitionSystem* collisionSystem) {
     gravity = PLAYER_BASE_GRAVITY + (screenH - 611);
     maxSpeedX = PLAYER_MAX_SPEED_BASE + (screenW - 800);
     maxSpeedY = PLAYER_MAX_SPEED_Y_BASE + (screenH - 611);
-    playerState = new IdleState();
-    inputSystem = new InputSystem();
+    playerState = std::unique_ptr<PlayerState>(new IdleState());
     loadMarioInputs();
     this->renderer = renderer;
     this->collisionSystem = collisionSystem;
@@ -40,11 +39,11 @@ void Player::loadMarioInputs() {
     inputMap[JUMP] = SDL_SCANCODE_Z;
     inputMap[RUN] = SDL_SCANCODE_X;
     inputMap[DOWN] = SDL_SCANCODE_DOWN;
-    inputSystem->setActions(inputMap);
+    inputSystem.setActions(inputMap);
 }
 
 std::map<uint8_t, bool> Player::getActiveActions() {
-    return inputSystem->getActiveActiones();
+    return inputSystem.getActiveActiones();
 }
 
 void Player::loadMarioSprites(const char* spritePath) {
@@ -70,10 +69,6 @@ float Player::getCurrentXSpeed() {
 
 float Player::getCurrentYSpeed() {
     return currentYSpeed;
-}
-
-PlayerState* Player::getMoveState() {
-    return playerState;
 }
 
 int Player::getMaxSpeedY() {
@@ -111,12 +106,11 @@ void Player::verticalMovement(float acceleration) {
 }
 
 void Player::handleInput() {
-    inputSystem->activateActions();
+    inputSystem.activateActions();
     //newState != NULL if we have to change to a new state (change to state returned by handleInput)
-    PlayerState *newState = playerState->handleInput(this);
+    std::unique_ptr<PlayerState> newState = playerState->handleInput(this);
     if (newState != NULL) {
-        delete playerState;
-        playerState = newState;
+        playerState = std::move(newState);
         //onEntry mostly controls graphics transitions
         playerState->onEntry(this);
     }
@@ -148,7 +142,7 @@ void Player::manageScreenEdgesCollition() {
 }
 
 void Player::handleFromDownCollision(Entity* entity) {
-    PlayerState *newState;
+    std::unique_ptr<PlayerState> newState;
     switch (entity->getId())
     {
     case Block_Brick:
@@ -161,8 +155,7 @@ void Player::handleFromDownCollision(Entity* entity) {
             currentYSpeed = 0;
             newState = playerState->handleFromDownCollision(this);
             if (newState != NULL) {
-                delete playerState;
-                playerState = newState;
+                playerState = std::move(newState);
                 playerState->onEntry(this);
             }
         }
@@ -211,7 +204,7 @@ void Player::handleFromLeftCollision(Entity* entity) {
 }
 
 void Player::handleFromSideCollision(Entity* entity, bool isRight) {
-    PlayerState* newState;
+    std::unique_ptr<PlayerState> newState;
     switch (entity->getId()) {
         case Block_Brick:
         case Block_Ground:
@@ -222,8 +215,7 @@ void Player::handleFromSideCollision(Entity* entity, bool isRight) {
             currentXSpeed = 0;
             newState = playerState->handleFromSideCollision(this);
             if (newState != NULL) {
-                delete playerState;
-                playerState = newState;
+                playerState = std::move(newState);
                 playerState->onEntry(this);
             }
         break;
@@ -235,10 +227,9 @@ void Player::handleFromSideCollision(Entity* entity, bool isRight) {
 
 void Player::onAirManager() {
     if (!isOnGround) {
-        PlayerState* newState = playerState->handleNoCollision(this);
+        std::unique_ptr<PlayerState> newState = playerState->handleNoCollision(this);
         if (newState != NULL) {
-            delete playerState;
-            playerState = newState;
+            playerState = std::move(newState);
             playerState->onEntry(this);
         }
     } else {

@@ -6,10 +6,11 @@
 #include "fallingState.h"
 #include "player.h"
 #include "global.h"
+#include <cstddef>
 #include <cstdio>
 
-PlayerState* JumpState::handleInput(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> JumpState::handleInput(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
 void JumpState::update(Player* player) {
@@ -30,19 +31,19 @@ void JumpState::onEntry(Player* player) {
     player->setCurrentYSpeed(player->getMaxSpeedY() * -1);
 }
 
-PlayerState* JumpState::handleFromUpCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> JumpState::handleFromUpCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
-PlayerState* JumpState::handleFromSideCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> JumpState::handleFromSideCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }
 
-PlayerState* JumpState::handleFromDownCollision(Player* player) {
-    if (player->getCurrentXSpeed() != 0) return new MovingState();
-    else return new IdleState(); 
+std::unique_ptr<PlayerState> JumpState::handleFromDownCollision(Player* player) {
+    if (player->getCurrentXSpeed() != 0) return std::unique_ptr<MovingState>(new MovingState());
+    else return std::unique_ptr<IdleState>(new IdleState()); 
 }
 
-PlayerState* JumpState::handleNoCollision(Player* player) {
-    return NULL;
+std::unique_ptr<PlayerState> JumpState::handleNoCollision(Player* player) {
+    return std::unique_ptr<PlayerState>();
 }

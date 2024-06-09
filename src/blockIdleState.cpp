@@ -15,7 +15,7 @@ void BlockIdleState::onEntry(InteractiveBlock* block) {
     //nothing
 }
 
-BlockState* BlockIdleState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockIdleState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
     switch (dstEntity->getId())
     {
     case PlayerEntity:
@@ -26,9 +26,9 @@ BlockState* BlockIdleState::handleFromDownCollision(InteractiveBlock* block, Ent
             if (block->getCantItems() == 1) {
                 //Give Item
             }
-            return new BlockBouncingState();
+            return std::unique_ptr<BlockState>(new BlockBouncingState());
         }
-        if (block->getId() != Block_Empty) return new BlockBouncingState();
+        if (block->getId() != Block_Empty) return std::unique_ptr<BlockState>(new BlockBouncingState());;
         break;
     
     default:
@@ -38,14 +38,14 @@ BlockState* BlockIdleState::handleFromDownCollision(InteractiveBlock* block, Ent
     
 }
 
-BlockState* BlockIdleState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockIdleState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockIdleState::handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockIdleState::handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockIdleState::handleNoCollision(InteractiveBlock* block) {
+std::unique_ptr<BlockState> BlockIdleState::handleNoCollision(InteractiveBlock* block) {
     return NULL;
 }

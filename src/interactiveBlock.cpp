@@ -8,17 +8,16 @@ InteractiveBlock::InteractiveBlock(SDL_Renderer *renderer, float x, float y, int
     originalY = y;
     maxY = y - (this->h / 2);
     speedY = -200;
-    blockState = new BlockIdleState();
+    blockState = std::unique_ptr<BlockState>(new BlockIdleState());
     animSpeed = 20;
     this->cantItems = cantItems;
 }
 
 void InteractiveBlock::handleFromDownCollision(Entity* entity) {
-    BlockState* newState;
+    std::unique_ptr<BlockState> newState;
     newState = blockState->handleFromDownCollision(this, entity);
     if (newState != NULL) {
-        delete blockState;
-        blockState = newState;
+        blockState = std::move(newState);
         blockState->onEntry(this);
     }
 }
@@ -35,8 +34,7 @@ void InteractiveBlock::bounce() {
     } else if (speedY > 0 && y >= originalY) {
         y = originalY;
         speedY = -200;
-        delete blockState;
-        blockState = new BlockIdleState();
+        blockState = std::unique_ptr<BlockState>(new BlockIdleState());
     }
 }
 

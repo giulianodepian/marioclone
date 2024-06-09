@@ -3,6 +3,7 @@
 
 
 #include "block.h"
+#include <memory>
 
 class BlockState;
 
@@ -19,7 +20,7 @@ class InteractiveBlock : public Block {
         virtual void handleFromLeftCollision(Entity* entity);
         virtual void handleFromDownCollision(Entity* entity);
         virtual void handleNoCollision();
-        BlockState* blockState;
+        std::unique_ptr<BlockState> blockState;
     private:
         int originalY;
         int maxY;

@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 #include "inputSystem.h"
 #include <map>
+#include <memory>
 class PlayerState;
 class InputSystem;
 
@@ -40,7 +41,6 @@ class Player : public Entity {
         int getMaxSpeedY();
         int getFallStarterSpeed();
         void setCurrentYSpeed(int currentYSpeed);
-        PlayerState* getMoveState();
         void stopMovement();
         void horizontalMovement(float acceleration);
         void verticalMovement(float acceleration);
@@ -65,9 +65,9 @@ class Player : public Entity {
         int fallStarterSpeed;
         void loadMarioSprites(const char* spritePath);
         void loadMarioInputs();
-        PlayerState* playerState;
+        std::unique_ptr<PlayerState> playerState;
         CollitionSystem* collisionSystem;
-        InputSystem* inputSystem;
+        InputSystem inputSystem;
 };
 
 #endif

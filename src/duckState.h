@@ -4,7 +4,7 @@
 #include "playerMoveState.h"
 
 class DuckState : public PlayerState {
-        virtual PlayerState* handleInput(Player* player); 
+        virtual std::unique_ptr<PlayerState> handleInput(Player* player); 
         virtual void update(Player* player);
         virtual void onEntry(Player* player);
 };

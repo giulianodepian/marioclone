@@ -9,10 +9,10 @@ class BlockState;
 class BlockIdleState : public BlockState {
         virtual void update(InteractiveBlock* block);
         virtual void onEntry(InteractiveBlock* block);
-        virtual BlockState* handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity);
-        virtual BlockState* handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity);
-        virtual BlockState* handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity);
-        virtual BlockState* handleNoCollision(InteractiveBlock* block);
+        virtual std::unique_ptr<BlockState> handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity);
+        virtual std::unique_ptr<BlockState> handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity);
+        virtual std::unique_ptr<BlockState> handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity);
+        virtual std::unique_ptr<BlockState> handleNoCollision(InteractiveBlock* block);
 };
 
 #endif

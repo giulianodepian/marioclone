@@ -12,19 +12,19 @@ void BlockBouncingState::update(InteractiveBlock* block) {
     }
 }
 
-BlockState* BlockBouncingState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockBouncingState::handleFromDownCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockBouncingState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockBouncingState::handleFromUpCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockBouncingState::handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) {
+std::unique_ptr<BlockState> BlockBouncingState::handleFromSideCollision(InteractiveBlock* block, Entity* dstEntity) {
     return NULL;
 }
 
-BlockState* BlockBouncingState::handleNoCollision(InteractiveBlock* block) {
+std::unique_ptr<BlockState> BlockBouncingState::handleNoCollision(InteractiveBlock* block) {
     return NULL;
 }
 
